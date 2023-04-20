@@ -20,7 +20,13 @@ int main()
 
     // Create instances of props
     Texture2D rockTex = LoadTexture("Tileset/nature_tileset/Rock.png");
-    Prop rock{Vector2{0.f, 0.f}, rockTex};
+    Texture2D logTex = LoadTexture("Tileset/nature_tileset/Log.png");
+
+    Prop props[2]
+    {
+        Prop{Vector2{600.f, 300.f}, rockTex},
+        Prop{Vector2{400.f, 500.f}, logTex}
+    };
 
     while (!WindowShouldClose())
     {
@@ -34,7 +40,10 @@ int main()
         DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);
 
         // Draw the props
-        rock.Render(knight.getWorldPos());
+        for(auto prop : props)
+        {
+            prop.Render(knight.getWorldPos());
+        }
         
         knight.tick(GetFrameTime());
 
@@ -46,6 +55,16 @@ int main()
         {
             knight.undoMovement();
         }
+
+        // Check collision with props
+        for(auto prop: props)
+        {
+            if(CheckCollisionRecs(knight.getCollisionRec(), prop.getCollisionRec(knight.getWorldPos())))
+            {
+                knight.undoMovement();
+            }
+        }
+
 
         EndDrawing();
     }
