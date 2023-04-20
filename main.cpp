@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "Character.h"
+#include "Prop.h"
 
 int main()
 {
@@ -15,8 +16,11 @@ int main()
     Vector2 mapPos{0.0, 0.0};
 
     // Create instance of character
-    Character knight;
-    knight.setScreenPos(windowWidth, windowHeight);
+    Character knight(windowWidth, windowHeight);
+
+    // Create instances of props
+    Texture2D rockTex = LoadTexture("Tileset/nature_tileset/Rock.png");
+    Prop rock{Vector2{0.f, 0.f}, rockTex};
 
     while (!WindowShouldClose())
     {
@@ -29,6 +33,8 @@ int main()
         // Draw the map
         DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);
 
+        // Draw the props
+        rock.Render(knight.getWorldPos());
         
         knight.tick(GetFrameTime());
 

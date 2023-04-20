@@ -5,9 +5,8 @@ class Character
 
 public:
 
-    Character();
+    Character(int winWidth, int winHeight);
     Vector2 getWorldPos() { return worldPos; }
-    void setScreenPos(int winWidth, int winHeight);
     void tick(float deltaTime);
     void undoMovement();
 
@@ -30,6 +29,7 @@ private:
     float width{};
     float height{};
     float updateTime{1.f / 12.f};
+    float scale = 4.0;
     int maxFrames{6};
     const float speed{4.0};
     int frame{};
