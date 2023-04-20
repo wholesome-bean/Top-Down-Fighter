@@ -2,11 +2,10 @@
 #include "raymath.h"
 #include "Character.h"
 
-
 int main()
 {
     float windowWidth{384};
-    float windowHeight{384};\
+    float windowHeight{384};
     InitWindow(windowWidth, windowHeight, "Richard's Top-Down Fighter");
     SetTargetFPS(60);
 
