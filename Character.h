@@ -4,10 +4,12 @@ class Character
 {
 
 public:
+
+    Character();
     Vector2 getWorldPos() { return worldPos; }
     void setScreenPos(int winWidth, int winHeight);
     void tick(float deltaTime);
-    Character();
+    void undoMovement();
 
 private:
     Texture2D texture = LoadTexture("characters/knight_idle_spritesheet.png");
@@ -15,6 +17,7 @@ private:
     Texture2D knight_run = LoadTexture("characters/knight_run_spritesheet.png");
     Vector2 screenPos{};
     Vector2 worldPos{};
+    Vector2 worldPosLastFrame{};
 
     // Character Stats
     float damage{};

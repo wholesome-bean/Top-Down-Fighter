@@ -6,6 +6,7 @@ int main()
 {
     float windowWidth{384};
     float windowHeight{384};
+    const float mapScale{4.0};
     InitWindow(windowWidth, windowHeight, "Richard's Top-Down Fighter");
     SetTargetFPS(60);
 
@@ -26,9 +27,19 @@ int main()
         mapPos = Vector2Scale(knight.getWorldPos(), -1.f);
 
         // Draw the map
-        DrawTextureEx(map, mapPos, 0.0, 4.0, WHITE);
+        DrawTextureEx(map, mapPos, 0.0, mapScale, WHITE);
 
+        
         knight.tick(GetFrameTime());
+
+        // Check the map bounds
+        if( knight.getWorldPos().x < 0.f ||
+            knight.getWorldPos().y < 0.f ||
+            knight.getWorldPos().x + windowWidth > map.width * mapScale ||
+            knight.getWorldPos().y + windowHeight > map.height * mapScale)
+        {
+            knight.undoMovement();
+        }
 
         EndDrawing();
     }

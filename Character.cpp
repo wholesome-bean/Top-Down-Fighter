@@ -10,8 +10,15 @@ void Character::setScreenPos(int winWidth, int winHeight)
             (float)winHeight / 2.0f - 4.0f * (0.5f * height)};
 }
 
+void Character::undoMovement()
+{
+    worldPos = worldPosLastFrame;
+}
+
 void Character::tick(float deltaTime)
 {
+    worldPosLastFrame = worldPos;
+
     // Movement
     Vector2 direction{};
     if (IsKeyDown(KEY_A))
