@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "Character.h"
 #include "Prop.h"
+#include "Enemy.h"
 
 int main()
 {
@@ -17,6 +18,10 @@ int main()
 
     // Create instance of character
     Character knight(windowWidth, windowHeight);
+
+    // Create instances of enemies
+    Enemy enemy(Vector2{200.f, 200.f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png"));
+    
 
     // Create instances of props
     Texture2D rockTex = LoadTexture("Tileset/nature_tileset/Rock.png");
@@ -64,6 +69,8 @@ int main()
                 knight.undoMovement();
             }
         }
+
+        enemy.tick(GetFrameTime());
 
 
         EndDrawing();
