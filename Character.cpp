@@ -1,23 +1,6 @@
 #include "Character.h"
 #include "raymath.h"
 
-
-
-void Character::undoMovement()
-{
-    worldPos = worldPosLastFrame;
-}
-
-Rectangle Character::getCollisionRec()
-{
-    return Rectangle{
-        screenPos.x,
-        screenPos.y,
-        width * scale,
-        height * scale
-    };
-}
-
 void Character::tick(float deltaTime)
 {
     worldPosLastFrame = worldPos;
@@ -39,10 +22,10 @@ void Character::tick(float deltaTime)
         // set worldPos = worldPos + direction
         worldPos = (Vector2Add(worldPos, Vector2Scale(Vector2Normalize(direction), speed)));
         direction.x < 0.f ? rightLeft = -1.f : rightLeft = 1.f;
-        texture = knight_run;
+        texture = run;
     }
     else
-        texture = knight_idle;
+        texture = idle;
 
     // Update animation frame
     runningTime += deltaTime;
