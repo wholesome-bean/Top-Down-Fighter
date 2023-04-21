@@ -7,11 +7,12 @@ class Character : public BaseCharacter
 {
 public:
     Character(int width, int height);
-    Vector2 getSCreenPos() { return screenPos; };
+    virtual Vector2 getScreenPos() override;
     virtual void tick(float deltaTime) override;
 
 private:
-    
+    int windowWidth;
+    int windowHeight;
 };
 
 #endif
