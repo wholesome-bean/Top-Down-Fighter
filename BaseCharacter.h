@@ -32,7 +32,7 @@ protected:
     float updateTime{1.f / 12.f};
     float scale = 4.0;
     int maxFrames{6};
-    const float speed{4.0};
+    float speed{4.0};
     int frame{};
 
 private:
