@@ -20,10 +20,19 @@ int main()
     Character knight(windowWidth, windowHeight);
 
     // Create instances of enemies
-    Enemy enemy(Vector2{200.f, 200.f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png"));
+    Enemy goblin(Vector2{800.f, 300.f}, LoadTexture("characters/goblin_idle_spritesheet.png"), LoadTexture("characters/goblin_run_spritesheet.png"));
+    Enemy slime(Vector2{500.f, 700.f}, LoadTexture("characters/slime_idle_spritesheet.png"), LoadTexture("characters/slime_run_spritesheet.png"));\
+
+    Enemy* enemies[]{
+        &goblin,
+        &slime
+    };
+
+    for(auto enemy : enemies)
+    {
+        enemy->setTarget(&knight);
+    }
     
-    // Set player as enemy target
-    enemy.setTarget(&knight);
 
     // Create instances of props
     Texture2D rockTex = LoadTexture("Tileset/nature_tileset/Rock.png");
@@ -34,8 +43,6 @@ int main()
         Prop{Vector2{600.f, 300.f}, rockTex},
         Prop{Vector2{400.f, 500.f}, logTex}
     };
-
-    
 
     while (!WindowShouldClose())
     {
@@ -52,6 +59,19 @@ int main()
         for(auto prop : props)
         {
             prop.Render(knight.getWorldPos());
+        }
+
+        if(!knight.getAlive())
+        {
+            DrawText("Game Over!", 55.f, 45.f, 40, RED);
+            EndDrawing();
+            continue;
+        }
+        else
+        {
+            std::string knightsHealth = "Health: ";
+            knightsHealth.append(std::to_string(knight.getHealth()), 0, 5);
+            DrawText(knightsHealth.c_str(), 55.f, 45.f, 40, RED);
         }
         
         knight.tick(GetFrameTime());
@@ -74,14 +94,21 @@ int main()
             }
         }
 
-        enemy.tick(GetFrameTime());
+        for(auto enemy : enemies)
+        {
+            enemy->tick(GetFrameTime());
+        }
 
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
-            if(CheckCollisionRecs(knight.getWeaponCollisionRec(), enemy.getCollisionRec()))
+            for(auto enemy : enemies)
             {
-                enemy.setAlive(false);
+                if(CheckCollisionRecs(knight.getWeaponCollisionRec(), enemy->getCollisionRec()))
+                {
+                    enemy->setAlive(false);
+                }
             }
+            
         }
 
         EndDrawing();

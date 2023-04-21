@@ -26,9 +26,6 @@ protected:
     Vector2 worldPos{};
     Vector2 worldPosLastFrame{};
 
-    // Character Stats
-    float damage{};
-
     // 1 : facing right -1 : facing left
     float rightLeft{1.f};
 
