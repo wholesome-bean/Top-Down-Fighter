@@ -20,6 +20,8 @@ Vector2 Character::getScreenPos()
 
 void Character::tick(float deltaTime)
 {
+    if(!getAlive()) return;
+
     // Movement
     if (IsKeyDown(KEY_A))
         velocity.x -= 1.0;
@@ -45,7 +47,8 @@ void Character::tick(float deltaTime)
             weapon.width * scale,
             weapon.height *scale
         };
-        rotation = 35.f;
+
+        rotation = IsMouseButtonDown(MOUSE_LEFT_BUTTON) ? 35.f : 0.f;
     }
     else
     {
@@ -57,7 +60,8 @@ void Character::tick(float deltaTime)
             weapon.width * scale,
             weapon.height *scale
         };
-        rotation = -35.f;
+        
+        rotation = IsMouseButtonDown(MOUSE_LEFT_BUTTON) ? -35.f : 0.f;
     }
 
     // Draw the sword

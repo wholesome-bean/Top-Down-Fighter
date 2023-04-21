@@ -10,6 +10,8 @@ public:
     void undoMovement();
     Rectangle getCollisionRec();
     virtual void tick(float deltaTime);
+    bool getAlive() { return alive; };
+    void setAlive(bool isAlive) { alive = isAlive; };
 
     // pure virtual function
     // makes BaseCharacter an abstract class as well
@@ -42,7 +44,7 @@ protected:
     Vector2 velocity{};
 
 private:
-    //
+    bool alive{true};
 };
 
 #endif

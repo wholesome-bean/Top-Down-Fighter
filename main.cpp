@@ -76,6 +76,13 @@ int main()
 
         enemy.tick(GetFrameTime());
 
+        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            if(CheckCollisionRecs(knight.getWeaponCollisionRec(), enemy.getCollisionRec()))
+            {
+                enemy.setAlive(false);
+            }
+        }
 
         EndDrawing();
     }
